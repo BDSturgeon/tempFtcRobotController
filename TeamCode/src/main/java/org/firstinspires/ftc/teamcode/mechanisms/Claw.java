@@ -8,7 +8,7 @@ public class Claw {
     Servo claw;
 
     public void init(HardwareMap hwMap) {
-        claw = hwMap.get(Servo.class, "Claw");
+        claw = hwMap.get(Servo.class, "claw");
     }
 
     public void closeClaw(){
