@@ -31,6 +31,12 @@ public class TestOpMode extends OpMode{
             claw.closeClaw();
         }
 
+        if (gamepad1.left_stick_y > 0) {
+            claw.moveWristUp();
+        } else if (gamepad1.left_stick_y < 0) {
+            claw.moveWristDown();
+        }
+
     }
 
 }

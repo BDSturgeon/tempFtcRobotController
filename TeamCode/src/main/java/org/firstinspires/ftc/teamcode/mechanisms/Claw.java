@@ -6,9 +6,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Claw {
 
     Servo claw;
+    Servo wrist;
+
+    private double currentWristPosition = .5;
 
     public void init(HardwareMap hwMap) {
         claw = hwMap.get(Servo.class, "claw");
+        wrist = hwMap.get(Servo.class, "wrist");
+        claw.setPosition(0);
+        wrist.setPosition(currentWristPosition);
     }
 
     public void closeClaw(){
@@ -17,5 +23,15 @@ public class Claw {
 
     public void openClaw(){
         claw.setPosition(.5);
+    }
+
+    public void moveWristUp() {
+        currentWristPosition = currentWristPosition + 1;
+        wrist.setPosition(currentWristPosition);
+    }
+
+    public void moveWristDown() {
+        currentWristPosition = currentWristPosition - 1;
+        wrist.setPosition(currentWristPosition);
     }
 }
