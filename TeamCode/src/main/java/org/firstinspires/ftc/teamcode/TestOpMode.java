@@ -32,13 +32,18 @@ public class TestOpMode extends OpMode{
         }
 
         if (gamepad1.left_stick_y > 0) {
-            claw.moveWristUp();
+            claw.moveArmUp();
         } else if (gamepad1.left_stick_y < 0) {
-            claw.moveWristDown();
+            claw.moveArmDown();
         }
 
+        claw.adjustWristForArm(claw.returnArmPosition());
+
+
         String wristPositionStr = String.format("%.2f",claw.returnWristPosition());
-        telemetry.addLine("Turret Position: " + wristPositionStr);
+        telemetry.addLine("Wrist Position: " + wristPositionStr);
+        String armPositionStr = String.format("%.2f",claw.returnArmPosition());
+        telemetry.addLine("Arm Position: " + armPositionStr);
     }
 
 }

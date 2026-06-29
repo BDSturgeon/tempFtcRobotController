@@ -7,35 +7,64 @@ public class Claw {
 
     Servo claw;
     Servo wrist;
+    Servo arm;
 
-    private double currentWristPosition = .5;
+    public static double convertDegToServo(double degrees){
+        return (degrees - 30) / 300.0;
+    }
+
+    private double clawOpen = .2; //measured in servo units
+    private double clawClosed = 0; //measured in servo units
+    private double currentWristPosition = 180;  //measured in degrees
+    private double currentArmPosition = 180; //Measured in degrees
 
     public void init(HardwareMap hwMap) {
         claw = hwMap.get(Servo.class, "claw");
         wrist = hwMap.get(Servo.class, "wrist");
-        claw.setPosition(0);
-        wrist.setPosition(currentWristPosition);
+        arm = hwMap.get(Servo.class, "arm");
+
+        claw.setPosition(clawClosed);
+        wrist.setPosition(convertDegToServo(currentWristPosition));
+        arm.setPosition(convertDegToServo(currentArmPosition));
     }
 
     public void closeClaw() {
-        claw.setPosition(0);
+        claw.setPosition(clawClosed);
     }
 
     public void openClaw() {
-        claw.setPosition(.2);
+        claw.setPosition(clawOpen);
     }
 
     public void moveWristUp() {
-        currentWristPosition = currentWristPosition + 1.0/300;
-        wrist.setPosition(currentWristPosition);
+        currentWristPosition = currentWristPosition + 1;
+        wrist.setPosition(convertDegToServo(currentWristPosition));
     }
 
     public void moveWristDown() {
-        currentWristPosition = currentWristPosition - 1.0/300;
-        wrist.setPosition(currentWristPosition);
+        currentWristPosition = currentWristPosition - 1;
+        wrist.setPosition(convertDegToServo(currentWristPosition));
+    }
+
+    public void adjustWristForArm(double armPosition) {
+        currentWristPosition = 180 + (armPosition - 180);
+        wrist.setPosition(convertDegToServo(currentWristPosition));
+    }
+
+    public void moveArmUp() {
+        currentArmPosition = currentArmPosition + 1;
+        arm.setPosition(convertDegToServo(currentArmPosition));
+    }
+
+    public void moveArmDown() {
+        currentArmPosition = currentArmPosition - 1;
+        arm.setPosition(convertDegToServo(currentArmPosition));
     }
 
     public double returnWristPosition() {
-       return currentWristPosition * 300;
+       return currentWristPosition;
+    }
+    public double returnArmPosition() {
+        return currentArmPosition;
     }
 }
