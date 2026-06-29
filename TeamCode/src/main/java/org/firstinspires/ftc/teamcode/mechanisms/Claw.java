@@ -17,21 +17,25 @@ public class Claw {
         wrist.setPosition(currentWristPosition);
     }
 
-    public void closeClaw(){
+    public void closeClaw() {
         claw.setPosition(0);
     }
 
-    public void openClaw(){
-        claw.setPosition(.5);
+    public void openClaw() {
+        claw.setPosition(.2);
     }
 
     public void moveWristUp() {
-        currentWristPosition = currentWristPosition + 1;
+        currentWristPosition = currentWristPosition + 1.0/300;
         wrist.setPosition(currentWristPosition);
     }
 
     public void moveWristDown() {
-        currentWristPosition = currentWristPosition - 1;
+        currentWristPosition = currentWristPosition - 1.0/300;
         wrist.setPosition(currentWristPosition);
+    }
+
+    public double returnWristPosition() {
+       return currentWristPosition * 300;
     }
 }

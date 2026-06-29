@@ -37,6 +37,8 @@ public class TestOpMode extends OpMode{
             claw.moveWristDown();
         }
 
+        String wristPositionStr = String.format("%.2f",claw.returnWristPosition());
+        telemetry.addLine("Turret Position: " + wristPositionStr);
     }
 
 }
